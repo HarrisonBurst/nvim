@@ -56,53 +56,81 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
-return   {
-  -- LSP Configuration & Plugins
-  'neovim/nvim-lspconfig',
-  dependencies = {
-    -- Automatically install LSPs to stdpath for neovim
-    { 'williamboman/mason.nvim', config = true },
-    {
-      'williamboman/mason-lspconfig.nvim',
-      config = function()
-        local mason_lspconfig = require('mason-lspconfig')
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-        capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-        mason_lspconfig.setup({
-          ensure_installed = vim.tbl_keys(servers)
-        })
-
-        mason_lspconfig.setup_handlers {
-          function(server_name)
-            require('lspconfig')[server_name].setup {
-              capabilities = capabilities,
-              on_attach = on_attach,
-              settings = servers[server_name],
-              filetypes = (servers[server_name] or {}).filetypes,
-            }
-          end,
+return {
+  -- Copilot setup before LSP
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    config = function()
+      require("copilot").setup({
+        panel = {
+          enabled = false
+        },
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          debounce = 100,
+          keymap = {
+            accept = "<Tab>",
+            accept_word = false,
+            accept_line = "<leader>l",
+            next = "<M-]>",
+            prev = "<M-[>",
+            dismiss = "<C-]>",
+          },
         }
-
-        mason_lspconfig.setup_handlers({
-          function(server_name)
-            require('lspconfig')[server_name].setup {
-              capabilities = capabilities,
-              on_attach = on_attach,
-              settings = servers[server_name],
-              filetypes = (servers[server_name] or {}).filetypes,
-            }
-          end,
-        })
-      end
-    },
-
-    -- Useful status updates for LSP
-    -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { 'j-hui/fidget.nvim', opts = {} },
-
-    -- Additional lua configuration, makes nvim stuff amazing!
-    'folke/neodev.nvim',
+      })
+    end
   },
+  -- LSP Configuration & Plugins
+  {
+    'neovim/nvim-lspconfig',
+    dependencies = {
+      -- Automatically install LSPs to stdpath for neovim
+      { 'williamboman/mason.nvim', config = true },
+      {
+        'williamboman/mason-lspconfig.nvim',
+        config = function()
+          local mason_lspconfig = require('mason-lspconfig')
+          local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+          capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+          mason_lspconfig.setup({
+            ensure_installed = vim.tbl_keys(servers)
+          })
+
+          mason_lspconfig.setup_handlers {
+            function(server_name)
+              require('lspconfig')[server_name].setup {
+                capabilities = capabilities,
+                on_attach = on_attach,
+                settings = servers[server_name],
+                filetypes = (servers[server_name] or {}).filetypes,
+              }
+            end,
+          }
+
+          mason_lspconfig.setup_handlers({
+            function(server_name)
+              require('lspconfig')[server_name].setup {
+                capabilities = capabilities,
+                on_attach = on_attach,
+                settings = servers[server_name],
+                filetypes = (servers[server_name] or {}).filetypes,
+              }
+            end,
+          })
+        end
+      },
+
+      -- Useful status updates for LSP
+      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+      { 'j-hui/fidget.nvim',       opts = {} },
+
+      -- Additional lua configuration, makes nvim stuff amazing!
+      'folke/neodev.nvim',
+    }
+  }
 }

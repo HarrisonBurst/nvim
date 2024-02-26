@@ -60,7 +60,7 @@ return {
           },
           indent = {
             indent_size = 2,
-            padding = 1, -- extra padding on left hand side
+            -- padding = 1, -- extra padding on left hand side
             -- indent guides
             with_markers = true,
             indent_marker = "│",
@@ -140,7 +140,7 @@ return {
           mappings = {
             ["<space>"] = {
               "toggle_node",
-              nowait = false,   -- disable `nowait` if you have existing combos starting with this char that you want to use
+              nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
             },
             ["<2-LeftMouse>"] = "open",
             ["<cr>"] = "open",

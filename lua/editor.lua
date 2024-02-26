@@ -9,4 +9,3 @@ vim.wo.relativenumber = true
 
 -- Break indent so things like html tags look better
 vim.o.breakindent = true
-
