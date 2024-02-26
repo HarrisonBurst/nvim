@@ -18,7 +18,17 @@ return {
       },
       pickers = {
         find_files = {
-          find_command = {"rg", "--ignore", "--hidden", "--files", "--unrestricted", "--glob=!**.git/*"},
+          find_command = {
+            "rg", 
+            "--ignore", 
+            "--hidden", 
+            "--files", 
+            "--unrestricted", 
+            "--glob=!**.git/*", 
+            "--glob=!**/.next/*", 
+            "--glob=!**/.open-next/*",
+            "--glob=!**/node_modules/*"
+          },
         }
       }
     })
