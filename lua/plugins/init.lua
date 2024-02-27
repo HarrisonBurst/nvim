@@ -1,6 +1,6 @@
 return {
   "nvim-lua/plenary.nvim",
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim",                     name = "catppuccin", priority = 1000 },
   {
     "mbbill/undotree",
     config = function()
@@ -8,9 +8,9 @@ return {
     end
   },
   -- Indent vertical lines
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl",        opts = {} },
   -- Shows keybinds
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',                opts = {} },
   -- Vim line at the bottom
   {
     -- Set lualine as statusline
@@ -24,7 +24,7 @@ return {
         section_separators = '',
       },
     },
-  }, 
+  },
   -- Comment block
   { 'numToStr/Comment.nvim', opts = {} },
 }
