@@ -20,6 +20,7 @@ vim.opt.title = true
 -- Search
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
+vim.opt.smartcase = true -- Ignore case if search pattern is all lowercase or \C
 
 -- Disable backups
 vim.opt.backup = false
