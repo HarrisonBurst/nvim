@@ -32,3 +32,6 @@ vim.opt.cmdheight = 0
 
 -- Scroll
 vim.opt.scrolloff = 10
+
+-- Use system clipboard
+vim.opt.clipboard = 'unnamedplus'
