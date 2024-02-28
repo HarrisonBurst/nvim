@@ -27,4 +27,6 @@ return {
   },
   -- Comment block
   { 'numToStr/Comment.nvim', opts = {} },
+  -- Bar with breadcrumbs at top
+  -- { 'Bekaboo/dropbar.nvim' },
 }
